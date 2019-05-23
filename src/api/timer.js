@@ -1,29 +1,30 @@
 var express = require('express')
 var router = express.Router()
-import Timer from '../models/todo';
+import Timer from '../models/timer';
 
 // middleware that is specific to this router
-// router.get('/', (req, res) => {
-//     Timer.find(function(err, todo) {
-//         res.send(todo);
-//     }).lean().populate('user')
-// });
+router.get('/', (req, res) => {
+    Timer.find(function(err, timer) {
+      console.log(timer);
+        res.send(timer);
+    })
+});
 
 //Get Timers by id
 router.get('/:id', (req, res) => {
-    Timer.findById(req.params.id, function(err, todo) {
+    Timer.findById(req.params.id, function(err, timer) {
         if(err) {
             res.status(422).json({errors: "" + err});
         } else {
-            res.send(todo);
+            res.send(timer);
         }
     })
 });
 
 //Create Timers
 router.post("", (req, res) => {
-    let todo = new Timer(req.body);
-    todo.save()
+    let timer = new Timer(req.body);
+    timer.save()
         .then(item => {
             res.status(200).json("item saved to database");
         })
@@ -52,6 +53,26 @@ router.put('/:id', (req, res) => {
             res.json('Updated Successfully');
         }
     })
+});
+
+router.post('/start/:id', (req, res) => {
+  Timer.findByIdAndUpdate(req.params.id, req.body, null, function(err) {
+      if(err) {
+          res.status(422).json({errors: "" + err});
+      } else {
+          res.json('Timer Started');
+      }
+  });
+});
+
+router.post('/stop/:id', (req, res) => {
+  Timer.findByIdAndUpdate(req.params.id, req.body, null, function(err) {
+      if(err) {
+          res.status(422).json({errors: "" + err});
+      } else {
+          res.json('Timer Stopped');
+      }
+  });
 });
 
 //Delete Timers
