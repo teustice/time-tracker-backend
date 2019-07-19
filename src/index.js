@@ -16,7 +16,7 @@ app.use(morgan('dev'));
 
 // 3rd party middleware
 app.use(cors({
-	origin: 'https://localhost:3000',
+	origin: 'https://fb.cheshirebeane.com',
 	exposedHeaders: config.corsHeaders
 }));
 
