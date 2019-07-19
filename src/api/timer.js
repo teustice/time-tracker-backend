@@ -3,8 +3,9 @@ var router = express.Router()
 import Timer from '../models/timer';
 
 // middleware that is specific to this router
-router.get('/', (req, res) => {
-    Timer.find(function(err, timer) {
+router.post('/get-timers', (req, res) => {
+  let userID = req.body.userID;
+    Timer.find({userID: userID}, function(err, timer) {
         res.send(timer);
     })
 });
@@ -23,6 +24,7 @@ router.get('/:id', (req, res) => {
 //Create Timers
 router.post("", (req, res) => {
     let timer = new Timer(req.body);
+    console.log(req.body);
     timer.save()
         .then(item => {
             res.status(200).json("item saved to database");

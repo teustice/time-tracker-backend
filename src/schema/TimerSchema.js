@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 //FreshBooks Reference: https://www.freshbooks.com/api/time_entries
 let TimerSchema = new mongoose.Schema({
+    userID: {type: Number, required: true},
     clientID: {type: Number, required: false},
     project: {type: String, required: false},
     service: {type: String, required: true},
