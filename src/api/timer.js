@@ -5,7 +5,6 @@ import Timer from '../models/timer';
 // middleware that is specific to this router
 router.get('/', (req, res) => {
     Timer.find(function(err, timer) {
-      console.log(timer);
         res.send(timer);
     })
 });
