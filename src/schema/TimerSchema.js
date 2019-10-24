@@ -11,7 +11,8 @@ let TimerSchema = new mongoose.Schema({
     note: {type: String, required: false},
     favorite: {Boolean, requred: false, default: false},
     startedAt: {type: Date, required: true},
-    initialStartTime: {type: Date, required: true}
+    initialStartTime: {type: Date, required: true},
+    priority: {type: Number, required: false, default: 0}
 });
 
 export default TimerSchema;
